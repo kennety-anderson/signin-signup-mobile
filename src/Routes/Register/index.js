@@ -1,13 +1,12 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp/index';
-let isAuthenticated = false;
+import SignIn from '../../pages/Register/SignIn';
+import SignUp from '../../pages/Register/SignUp/index';
 
 const optionsNavigation = { headerShown: false };
+
+const Stack = createStackNavigator();
 
 const Register = () => (
   <Stack.Navigator initialRouteName="SignIn">
@@ -24,12 +23,4 @@ const Register = () => (
   </Stack.Navigator>
 );
 
-const Stack = createStackNavigator();
-
-const Routes = () => (
-  <NavigationContainer>
-    {isAuthenticated ? <Text>Ola mundo</Text> : <Register />}
-  </NavigationContainer>
-);
-
-export default Routes;
+export default Register;

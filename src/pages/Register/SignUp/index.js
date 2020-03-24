@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Keyboard, Alert } from 'react-native';
 
-import Background from '../../components/Background';
+import Background from '../../../components/Background';
 import {
   Container,
   Form,
@@ -10,9 +10,10 @@ import {
   SignUpLink,
   SignUpLinkText,
 } from './styles';
-import apiCustomer from '../../services/crud-customers/api';
 
-const SingUp = ({ navigation }) => {
+import apiCustomer from '../../../services/crud-customers/api';
+
+function SingUp({ navigation }) {
   const emailRef = useRef();
   const cpfRef = useRef();
   const birthdateRef = useRef();
@@ -116,6 +117,6 @@ const SingUp = ({ navigation }) => {
       </Container>
     </Background>
   );
-};
+}
 
 export default SingUp;

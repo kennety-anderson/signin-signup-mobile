@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Keyboard } from 'react-native';
 
-import Background from '../../components/Background';
-
+import Background from '../../../components/Background';
 import {
   Container,
   Form,
@@ -10,18 +9,38 @@ import {
   SubmitButton,
   SignUpLink,
   SignUpLinkText,
+  Error,
 } from './styles';
 
-const SignIn = ({ navigation }) => {
+import apiAuthentication from '../../../services/auth/api';
+import { login } from '../../../services/auth/authentication';
+
+function SignIn({ navigation }) {
   const passwordRef = useRef();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [error, setError] = useState();
+
+  const handlerSubmit = async () => {
+    try {
+      const { data } = await apiAuthentication.post('auth', {
+        email,
+        password,
+      });
+      await login(data.accessToken);
+      Keyboard.dismiss();
+      navigation.navigate('Main', { screen: 'Home' });
+    } catch (err) {
+      setError('Erro, usuario ou senha invalidos!');
+    }
+  };
 
   return (
     <Background>
       <Container>
         <Form>
+          {error && <Error>{error}</Error>}
           <FormInput
             icon="mail-outline"
             keyboardType="email-address"
@@ -41,9 +60,9 @@ const SignIn = ({ navigation }) => {
             ref={passwordRef}
             value={password}
             onChangeText={text => setPassword(text)}
-            // onSubmitEditing={handleSubmit}
+            onSubmitEditing={handlerSubmit}
           />
-          <SubmitButton>Entrar</SubmitButton>
+          <SubmitButton onPress={handlerSubmit}>Entrar</SubmitButton>
         </Form>
         <SignUpLink
           onPress={() => {
@@ -55,6 +74,6 @@ const SignIn = ({ navigation }) => {
       </Container>
     </Background>
   );
-};
+}
 
 export default SignIn;

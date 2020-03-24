@@ -1,20 +1,24 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
 import './config/reactotronConfig';
-import Background from './components/Background';
 
-import Routes from './routes';
+import Routes from './Routes/routes';
 
-const App = () => (
-  <Background>
-    <StatusBar
-      barStyle="ligth-content"
-      translucent={true}
-      backgroundColor="transparent"
-    />
-    <Routes />
-  </Background>
-);
+// const Loading = () => <Text>Loading porra</Text>;
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <StatusBar
+        barStyle="ligth-content"
+        translucent={true}
+        backgroundColor="transparent"
+      />
+      <Routes />
+    </NavigationContainer>
+  );
+};
 
 export default App;
